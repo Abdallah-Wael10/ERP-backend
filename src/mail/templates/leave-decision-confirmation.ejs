@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Leave Decision Confirmation</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 0; padding: 20px; background-color: #f4f4f4; }
+        .container { max-width: 600px; margin: 0 auto; background-color: white; padding: 20px; border-radius: 10px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
+        .header { color: white; padding: 20px; text-align: center; border-radius: 10px 10px 0 0; margin: -20px -20px 20px -20px; }
+        .approved { background-color: #28a745; }
+        .rejected { background-color: #dc3545; }
+        .leave-info { background-color: #f8f9fa; padding: 15px; border-radius: 5px; margin: 20px 0; }
+        .status-badge { display: inline-block; padding: 5px 15px; border-radius: 20px; color: white; font-weight: bold; margin: 10px 0; }
+        .approved-badge { background-color: #28a745; }
+        .rejected-badge { background-color: #dc3545; }
+        .footer { text-align: center; margin-top: 30px; color: #666; }
+        .confirmation-icon { font-size: 48px; text-align: center; margin: 20px 0; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header <%= status === 'approved' ? 'approved' : 'rejected' %>">
+            <h1>✅ Action Confirmed</h1>
+            <p>Leave Decision Successfully Processed</p>
+        </div>
+
+        <div class="confirmation-icon">
+            👍
+        </div>
+
+        <div style="background-color: <%= status === 'approved' ? '#d4edda' : '#f8d7da' %>; padding: 15px; border-radius: 5px; margin: 20px 0; text-align: center;">
+            <h3>You have successfully <%= status === 'approved' ? 'approved' : 'rejected' %> the leave request</h3>
+            <span class="status-badge <%= status === 'approved' ? 'approved-badge' : 'rejected-badge' %>">
+                <%= status === 'approved' ? '✅ APPROVED' : '❌ REJECTED' %>
+            </span>
+        </div>
+
+        <div class="leave-info">
+            <h3>👤 Employee Information</h3>
+            <p><strong>Name:</strong> <%= employee.fullName %></p>
+            <p><strong>Email:</strong> <%= employee.email %></p>
+            <p><strong>Role:</strong> <%= employee.role.toUpperCase() %></p>
+        </div>
+
+        <div class="leave-info">
+            <h3>📅 Leave Details</h3>
+            <p><strong>Start Date:</strong> <%= new Date(startDate).toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }) %></p>
+            <p><strong>End Date:</strong> <%= new Date(endDate).toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }) %></p>
+            <p><strong>Total Days:</strong> <%= totalDays %> day<%= totalDays > 1 ? 's' : '' %></p>
+            <p><strong>Reason:</strong> <%= reason %></p>
+        </div>
+
+        <% if (reviewNote) { %>
+        <div style="background-color: #e3f2fd; padding: 15px; border-radius: 5px; margin: 20px 0;">
+            <h4>📝 Your Decision Note:</h4>
+            <p><%= reviewNote %></p>
+        </div>
+        <% } %>
+
+        <div style="background-color: #f0f0f0; padding: 15px; border-radius: 5px; margin: 20px 0;">
+            <h4>📋 Summary:</h4>
+            <p>• Employee has been notified of your decision</p>
+            <p>• All HR team members have been informed</p>
+            <p>• Decision recorded at: <%= new Date(reviewedAt).toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit' }) %></p>
+        </div>
+
+        <div class="footer">
+            <p>ERP System | HR Management</p>
+            <p style="font-size: 12px;">Decision confirmation</p>
+        </div>
+    </div>
+</body>
+</html>

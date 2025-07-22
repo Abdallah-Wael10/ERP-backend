@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Order Shipped</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 0; padding: 20px; background-color: #f4f4f4; }
+        .container { max-width: 600px; margin: 0 auto; background-color: white; padding: 20px; border-radius: 10px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
+        .header { background-color: #17a2b8; color: white; padding: 20px; text-align: center; border-radius: 10px 10px 0 0; margin: -20px -20px 20px -20px; }
+        .order-info { background-color: #f8f9fa; padding: 15px; border-radius: 5px; margin: 20px 0; }
+        .footer { text-align: center; margin-top: 30px; color: #666; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🚚 Order Shipped</h1>
+            <p>Order #<%= orderId %></p>
+        </div>
+
+        <div class="order-info">
+            <h3>📋 Order Details</h3>
+            <p><strong>Customer:</strong> <%= customer.name %></p>
+            <p><strong>Status:</strong> <span style="color: #17a2b8; font-weight: bold;">SHIPPED</span></p>
+            <p><strong>Shipped By:</strong> <%= shippedBy.fullName %></p>
+            <p><strong>Shipped At:</strong> <%= new Date(shippedAt).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit' }) %></p>
+        </div>
+
+        <div style="background-color: #d1ecf1; padding: 15px; border-radius: 5px; margin: 20px 0;">
+            <h4>🎉 Order Complete!</h4>
+            <p>• Your order has been successfully shipped</p>
+            <p>• Customer will receive their items soon</p>
+        </div>
+
+        <div class="footer">
+            <p>ERP System | Order Management</p>
+        </div>
+    </div>
+</body>
+</html>

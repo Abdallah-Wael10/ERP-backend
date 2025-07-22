@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Employee Attendance Update</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 0; padding: 20px; background-color: #f4f4f4; }
+        .container { max-width: 600px; margin: 0 auto; background-color: white; padding: 20px; border-radius: 10px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
+        .header { background-color: #6f42c1; color: white; padding: 20px; text-align: center; border-radius: 10px 10px 0 0; margin: -20px -20px 20px -20px; }
+        .attendance-info { background-color: #f8f9fa; padding: 15px; border-radius: 5px; margin: 20px 0; }
+        .action-badge { display: inline-block; padding: 5px 15px; border-radius: 20px; color: white; font-weight: bold; margin: 10px 0; }
+        .check-in { background-color: #28a745; }
+        .check-out { background-color: #17a2b8; }
+        .footer { text-align: center; margin-top: 30px; color: #666; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>👥 Employee Attendance Update</h1>
+            <p>HR Notification</p>
+        </div>
+
+        <div style="text-align: center; margin: 20px 0;">
+            <span class="action-badge <%= actionType === 'check-in' ? 'check-in' : 'check-out' %>">
+                <%= actionType === 'check-in' ? '🟢 CHECK-IN' : '🔴 CHECK-OUT' %>
+            </span>
+        </div>
+
+        <div class="attendance-info">
+            <h3>👤 Employee Information</h3>
+            <p><strong>Name:</strong> <%= employee.fullName %></p>
+            <p><strong>Email:</strong> <%= employee.email %></p>
+            <p><strong>Role:</strong> <%= employee.role.toUpperCase() %></p>
+            <p><strong>Department:</strong> <%= employee.role === 'sales' ? 'Sales' : employee.role === 'inventory' ? 'Inventory' : employee.role === 'finance' ? 'Finance' : 'General' %></p>
+        </div>
+
+        <div class="attendance-info">
+            <h3>📅 Attendance Details</h3>
+            <p><strong>Date:</strong> <%= new Date(date).toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }) %></p>
+            
+            <% if (actionType === 'check-in') { %>
+                <p><strong>Check-In Time:</strong> <%= new Date(checkInTime).toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', second: '2-digit' }) %></p>
+            <% } else { %>
+                <p><strong>Check-In Time:</strong> <%= new Date(checkInTime).toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' }) %></p>
+                <p><strong>Check-Out Time:</strong> <%= new Date(checkOutTime).toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' }) %></p>
+                
+                <% 
+                const checkIn = new Date(checkInTime);
+                const checkOut = new Date(checkOutTime);
+                const diffMs = checkOut - checkIn;
+                const diffHours = Math.floor(diffMs / (1000 * 60 * 60));
+                const diffMinutes = Math.floor((diffMs % (1000 * 60 * 60)) / (1000 * 60));
+                %>
+                <p><strong>Total Working Hours:</strong> <%= diffHours %>h <%= diffMinutes %>m</p>
+            <% } %>
+        </div>
+
+        <% if (note) { %>
+        <div style="background-color: #e3f2fd; padding: 15px; border-radius: 5px; margin: 20px 0;">
+            <h4>📝 Employee Note:</h4>
+            <p><%= note %></p>
+        </div>
+        <% } %>
+
+        <div style="background-color: #f0f0f0; padding: 15px; border-radius: 5px; margin: 20px 0;">
+            <h4>📊 Quick Actions:</h4>
+            <p>• View all attendance records in the HR dashboard</p>
+            <p>• Generate attendance reports</p>
+            <p>• Monitor team productivity</p>
+        </div>
+
+        <div class="footer">
+            <p>ERP System | HR Management</p>
+            <p style="font-size: 12px;">This is an automated HR notification</p>
+        </div>
+    </div>
+</body>
+</html>

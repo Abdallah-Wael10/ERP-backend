@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Order Cancelled</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 0; padding: 20px; background-color: #f4f4f4; }
+        .container { max-width: 600px; margin: 0 auto; background-color: white; padding: 20px; border-radius: 10px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
+        .header { background-color: #dc3545; color: white; padding: 20px; text-align: center; border-radius: 10px 10px 0 0; margin: -20px -20px 20px -20px; }
+        .order-info { background-color: #f8f9fa; padding: 15px; border-radius: 5px; margin: 20px 0; }
+        .footer { text-align: center; margin-top: 30px; color: #666; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>❌ Order Cancelled</h1>
+            <p>Order #<%= orderId %></p>
+        </div>
+
+        <div class="order-info">
+            <h3>📋 Order Details</h3>
+            <p><strong>Customer:</strong> <%= customer.name %></p>
+            <p><strong>Status:</strong> <span style="color: #dc3545; font-weight: bold;">CANCELLED</span></p>
+            <p><strong>Cancelled By:</strong> <%= cancelledBy.fullName %></p>
+            <p><strong>Cancelled At:</strong> <%= new Date(cancelledAt).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit' }) %></p>
+        </div>
+
+        <div style="background-color: #f8d7da; padding: 15px; border-radius: 5px; margin: 20px 0;">
+            <h4>ℹ️ Information:</h4>
+            <p>• This order has been cancelled</p>
+            <p>• No further action is required</p>
+        </div>
+
+        <div class="footer">
+            <p>ERP System | Order Management</p>
+        </div>
+    </div>
+</body>
+</html>

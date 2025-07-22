@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Leave Request Decision</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 0; padding: 20px; background-color: #f4f4f4; }
+        .container { max-width: 600px; margin: 0 auto; background-color: white; padding: 20px; border-radius: 10px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
+        .header { color: white; padding: 20px; text-align: center; border-radius: 10px 10px 0 0; margin: -20px -20px 20px -20px; }
+        .approved { background-color: #28a745; }
+        .rejected { background-color: #dc3545; }
+        .leave-info { background-color: #f8f9fa; padding: 15px; border-radius: 5px; margin: 20px 0; }
+        .status-badge { display: inline-block; padding: 5px 15px; border-radius: 20px; color: white; font-weight: bold; margin: 10px 0; }
+        .approved-badge { background-color: #28a745; }
+        .rejected-badge { background-color: #dc3545; }
+        .footer { text-align: center; margin-top: 30px; color: #666; }
+        .decision-icon { font-size: 48px; text-align: center; margin: 20px 0; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header <%= status === 'approved' ? 'approved' : 'rejected' %>">
+            <h1><%= status === 'approved' ? '✅ Leave Request Approved' : '❌ Leave Request Rejected' %></h1>
+            <p>HR Team Notification</p>
+        </div>
+
+        <div class="decision-icon">
+            <%= status === 'approved' ? '🎉' : '😔' %>
+        </div>
+
+        <div style="text-align: center; margin: 20px 0;">
+            <span class="status-badge <%= status === 'approved' ? 'approved-badge' : 'rejected-badge' %>">
+                <%= status === 'approved' ? '✅ APPROVED' : '❌ REJECTED' %>
+            </span>
+        </div>
+
+        <div class="leave-info">
+            <h3>👤 Employee Information</h3>
+            <p><strong>Name:</strong> <%= employee.fullName %></p>
+            <p><strong>Email:</strong> <%= employee.email %></p>
+            <p><strong>Role:</strong> <%= employee.role.toUpperCase() %></p>
+            <p><strong>Department:</strong> <%= employee.role === 'sales' ? 'Sales' : employee.role === 'inventory' ? 'Inventory' : employee.role === 'finance' ? 'Finance' : 'General' %></p>
+        </div>
+
+        <div class="leave-info">
+            <h3>📅 Leave Details</h3>
+            <p><strong>Start Date:</strong> <%= new Date(startDate).toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }) %></p>
+            <p><strong>End Date:</strong> <%= new Date(endDate).toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }) %></p>
+            <p><strong>Total Days:</strong> <%= totalDays %> day<%= totalDays > 1 ? 's' : '' %></p>
+            <p><strong>Original Reason:</strong> <%= reason %></p>
+        </div>
+
+        <div class="leave-info">
+            <h3>👔 Decision Made By</h3>
+            <p><strong>Name:</strong> <%= reviewedBy.fullName %></p>
+            <p><strong>Role:</strong> <%= reviewedBy.role.toUpperCase() %></p>
+            <p><strong>Decision Time:</strong> <%= new Date(reviewedAt).toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit' }) %></p>
+        </div>
+
+        <% if (reviewNote) { %>
+        <div style="background-color: <%= status === 'approved' ? '#d4edda' : '#f8d7da' %>; padding: 15px; border-radius: 5px; margin: 20px 0;">
+            <h4>💬 Decision Note:</h4>
+            <p><%= reviewNote %></p>
+        </div>
+        <% } %>
+
+        <% if (status === 'approved') { %>
+        <div style="background-color: #d1ecf1; padding: 15px; border-radius: 5px; margin: 20px 0;">
+            <h4>📊 HR Actions Required:</h4>
+            <p>• Update leave balance records</p>
+            <p>• Notify relevant departments</p>
+            <p>• Update team schedules</p>
+            <p>• Monitor coverage arrangements</p>
+        </div>
+        <% } else { %>
+        <div style="background-color: #fff3cd; padding: 15px; border-radius: 5px; margin: 20px 0;">
+            <h4>📊 HR Follow-up:</h4>
+            <p>• Monitor for resubmission</p>
+            <p>• Consider alternative solutions</p>
+            <p>• Document rejection reasons</p>
+            <p>• Support employee if needed</p>
+        </div>
+        <% } %>
+
+        <div style="background-color: #e3f2fd; padding: 15px; border-radius: 5px; margin: 20px 0;">
+            <h4>🎯 Team Update:</h4>
+            <p>Keep all HR team members informed about this decision for better coordination and employee support.</p>
+        </div>
+
+        <div class="footer">
+            <p>ERP System | HR Management</p>
+            <p style="font-size: 12px;">Internal HR notification</p>
+        </div>
+    </div>
+</body>
+</html>

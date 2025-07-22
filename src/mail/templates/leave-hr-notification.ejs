@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>New Leave Request</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 0; padding: 20px; background-color: #f4f4f4; }
+        .container { max-width: 600px; margin: 0 auto; background-color: white; padding: 20px; border-radius: 10px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
+        .header { background-color: #6f42c1; color: white; padding: 20px; text-align: center; border-radius: 10px 10px 0 0; margin: -20px -20px 20px -20px; }
+        .leave-info { background-color: #f8f9fa; padding: 15px; border-radius: 5px; margin: 20px 0; }
+        .urgent-badge { display: inline-block; padding: 5px 15px; border-radius: 20px; background-color: #ff6b6b; color: white; font-weight: bold; margin: 10px 0; animation: pulse 2s infinite; }
+        .footer { text-align: center; margin-top: 30px; color: #666; }
+        .hr-icon { font-size: 48px; color: #6f42c1; text-align: center; margin: 20px 0; }
+        @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.05); } 100% { transform: scale(1); } }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>👥 New Leave Request</h1>
+            <p>Requires HR Review</p>
+        </div>
+
+        <div class="hr-icon">
+            🔔
+        </div>
+
+        <div style="text-align: center; margin: 20px 0;">
+            <span class="urgent-badge">🔥 ACTION REQUIRED</span>
+        </div>
+
+        <div class="leave-info">
+            <h3>👤 Employee Information</h3>
+            <p><strong>Name:</strong> <%= employee.fullName %></p>
+            <p><strong>Email:</strong> <%= employee.email %></p>
+            <p><strong>Role:</strong> <%= employee.role.toUpperCase() %></p>
+            <p><strong>Department:</strong> <%= employee.role === 'sales' ? 'Sales' : employee.role === 'inventory' ? 'Inventory' : employee.role === 'finance' ? 'Finance' : 'General' %></p>
+        </div>
+
+        <div class="leave-info">
+            <h3>📅 Leave Request Details</h3>
+            <p><strong>Start Date:</strong> <%= new Date(startDate).toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }) %></p>
+            <p><strong>End Date:</strong> <%= new Date(endDate).toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }) %></p>
+            <p><strong>Total Days:</strong> <%= totalDays %> day<%= totalDays > 1 ? 's' : '' %></p>
+            <p><strong>Submitted:</strong> <%= new Date(createdAt).toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit' }) %></p>
+        </div>
+
+        <div class="leave-info">
+            <h3>📋 Reason for Leave</h3>
+            <p><%= reason %></p>
+        </div>
+
+        <% 
+        const today = new Date();
+        const startDate_obj = new Date(startDate);
+        const daysUntilLeave = Math.ceil((startDate_obj - today) / (1000 * 60 * 60 * 24));
+        %>
+        
+        <% if (daysUntilLeave <= 7) { %>
+        <div style="background-color: #fff3cd; padding: 15px; border-radius: 5px; margin: 20px 0; border-left: 4px solid #ffc107;">
+            <h4>⚠️ Urgent Notice:</h4>
+            <p><strong>Leave starts in <%= daysUntilLeave %> day<%= daysUntilLeave !== 1 ? 's' : '' %>!</strong></p>
+            <p>Please review this request as soon as possible.</p>
+        </div>
+        <% } %>
+
+        <div style="background-color: #f0f0f0; padding: 15px; border-radius: 5px; margin: 20px 0;">
+            <h4>📊 Quick Actions:</h4>
+            <p>• Review the request in HR dashboard</p>
+            <p>• Check team schedule for conflicts</p>
+            <p>• Approve or reject with comments</p>
+            <p>• Update leave balance if approved</p>
+        </div>
+
+        <div style="background-color: #e3f2fd; padding: 15px; border-radius: 5px; margin: 20px 0;">
+            <h4>🎯 Review Considerations:</h4>
+            <p>• Employee's remaining leave balance</p>
+            <p>• Team workload during requested period</p>
+            <p>• Business impact and project deadlines</p>
+            <p>• Previous leave history</p>
+        </div>
+
+        <div class="footer">
+            <p>ERP System | HR Management</p>
+            <p style="font-size: 12px;">Please review this request promptly</p>
+        </div>
+    </div>
+</body>
+</html>

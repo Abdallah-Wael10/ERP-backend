@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Leave Request Approved</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 0; padding: 20px; background-color: #f4f4f4; }
+        .container { max-width: 600px; margin: 0 auto; background-color: white; padding: 20px; border-radius: 10px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
+        .header { background-color: #28a745; color: white; padding: 20px; text-align: center; border-radius: 10px 10px 0 0; margin: -20px -20px 20px -20px; }
+        .leave-info { background-color: #f8f9fa; padding: 15px; border-radius: 5px; margin: 20px 0; }
+        .status-badge { display: inline-block; padding: 5px 15px; border-radius: 20px; background-color: #28a745; color: white; font-weight: bold; margin: 10px 0; }
+        .footer { text-align: center; margin-top: 30px; color: #666; }
+        .success-icon { font-size: 48px; color: #28a745; text-align: center; margin: 20px 0; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>✅ Leave Request Approved</h1>
+            <p>Congratulations! Your leave has been approved</p>
+        </div>
+
+        <div class="success-icon">
+            🎉
+        </div>
+
+        <div class="leave-info">
+            <h3>👤 Employee Information</h3>
+            <p><strong>Name:</strong> <%= employee.fullName %></p>
+            <p><strong>Email:</strong> <%= employee.email %></p>
+            <p><strong>Role:</strong> <%= employee.role.toUpperCase() %></p>
+        </div>
+
+        <div class="leave-info">
+            <h3>📅 Approved Leave Details</h3>
+            <p><strong>Start Date:</strong> <%= new Date(startDate).toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }) %></p>
+            <p><strong>End Date:</strong> <%= new Date(endDate).toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }) %></p>
+            <p><strong>Total Days:</strong> <%= totalDays %> day<%= totalDays > 1 ? 's' : '' %></p>
+            <p><strong>Status:</strong> <span class="status-badge">✅ APPROVED</span></p>
+        </div>
+
+        <div class="leave-info">
+            <h3>📋 Original Reason</h3>
+            <p><%= reason %></p>
+        </div>
+
+        <div class="leave-info">
+            <h3>👔 Approved By</h3>
+            <p><strong>Name:</strong> <%= reviewedBy.fullName %></p>
+            <p><strong>Role:</strong> <%= reviewedBy.role.toUpperCase() %></p>
+            <p><strong>Approved At:</strong> <%= new Date(reviewedAt).toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit' }) %></p>
+        </div>
+
+        <% if (reviewNote) { %>
+        <div style="background-color: #d4edda; padding: 15px; border-radius: 5px; margin: 20px 0;">
+            <h4>💬 HR Note:</h4>
+            <p><%= reviewNote %></p>
+        </div>
+        <% } %>
+
+        <div style="background-color: #d1ecf1; padding: 15px; border-radius: 5px; margin: 20px 0;">
+            <h4>🎯 Important Reminders:</h4>
+            <p>• Make sure to complete any pending work before your leave</p>
+            <p>• Inform your team members about your absence</p>
+            <p>• Set up an out-of-office email message</p>
+            <p>• Enjoy your time off! 😊</p>
+        </div>
+
+        <div class="footer">
+            <p>ERP System | Leave Management</p>
+            <p style="font-size: 12px;">This is an automated notification</p>
+        </div>
+    </div>
+</body>
+</html>

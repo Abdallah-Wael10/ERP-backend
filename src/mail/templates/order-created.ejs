@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>New Order Created</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 0; padding: 20px; background-color: #f4f4f4; }
+        .container { max-width: 600px; margin: 0 auto; background-color: white; padding: 20px; border-radius: 10px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
+        .header { background-color: #007bff; color: white; padding: 20px; text-align: center; border-radius: 10px 10px 0 0; margin: -20px -20px 20px -20px; }
+        .order-info { background-color: #f8f9fa; padding: 15px; border-radius: 5px; margin: 20px 0; }
+        .product-table { width: 100%; border-collapse: collapse; margin: 20px 0; }
+        .product-table th, .product-table td { border: 1px solid #ddd; padding: 10px; text-align: left; }
+        .product-table th { background-color: #f8f9fa; }
+        .total { font-weight: bold; font-size: 18px; color: #28a745; }
+        .footer { text-align: center; margin-top: 30px; color: #666; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🆕 New Order Created</h1>
+            <p>Order #<%= orderId %></p>
+        </div>
+
+        <div class="order-info">
+            <h3>📋 Order Details</h3>
+            <p><strong>Customer:</strong> <%= customer.name %> (<%= customer.email %>)</p>
+            <p><strong>Sales Person:</strong> <%= salesPerson.fullName %></p>
+            <p><strong>Status:</strong> <span style="color: #ffc107; font-weight: bold;">PENDING</span></p>
+            <p><strong>Created At:</strong> <%= new Date(createdAt).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit' }) %></p>
+            <% if (note) { %>
+            <p><strong>Note:</strong> <%= note %></p>
+            <% } %>
+        </div>
+
+        <h3>🛍️ Order Items</h3>
+        <table class="product-table">
+            <thead>
+                <tr>
+                    <th>Product</th>
+                    <th>Quantity</th>
+                    <th>Price</th>
+                    <th>Total</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% let grandTotal = 0 %>
+                <% lines.forEach(line => { %>
+                    <% const lineTotal = line.qty * line.productId.price %>
+                    <% grandTotal += lineTotal %>
+                    <tr>
+                        <td><%= line.productId.title %></td>
+                        <td><%= line.qty %></td>
+                        <td>$<%= line.productId.price %></td>
+                        <td>$<%= lineTotal %></td>
+                    </tr>
+                <% }) %>
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="3" class="total">Grand Total:</td>
+                    <td class="total">$<%= grandTotal %></td>
+                </tr>
+            </tfoot>
+        </table>
+
+        <div style="background-color: #e3f2fd; padding: 15px; border-radius: 5px; margin: 20px 0;">
+            <h4>📢 Next Steps:</h4>
+            <p>• Sales Manager needs to <strong>confirm</strong> this order</p>
+            <p>• Once confirmed, Inventory team will prepare for shipping</p>
+        </div>
+
+        <div class="footer">
+            <p>ERP System | Order Management</p>
+            <p style="font-size: 12px;">This is an automated notification</p>
+        </div>
+    </div>
+</body>
+</html>
